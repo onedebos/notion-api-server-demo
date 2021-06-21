@@ -17,17 +17,6 @@ fastify.get("/", async (req, reply) => {
   }
 });
 
-fastify.post("/login", async (req, reply) => {
-  try {
-    const { email } = req.body;
-    const res = await bootcampController.findSubscriberByEmail({ email });
-    reply.type("application/json").code(200);
-    return { data: res };
-  } catch (error) {
-    reply.type("application/json").code(400);
-    return { error };
-  }
-});
 
 fastify.post("/", async (req, reply) => {
   try {
