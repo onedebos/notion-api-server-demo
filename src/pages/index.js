@@ -1,54 +1,72 @@
 import {
   Link as ChakraLink,
   Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+  Flex,
+  Stack,
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code>.
-      </Text>
+} from "@chakra-ui/react";
+import { useState } from "react";
+import Card from "../components/Card";
+import axios from 'axios'
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
+const Index = () => {
+  const [loginErrorMsg, setLoginErrorMsg] = useState("");
+  const [mailingListErrMsg, setMailingListErrMsg] = useState("");
+  const [info, setInfo] = useState({
+    email: '',
+    name: ''
+  })
+
+  const login = async () =>{
+
+    try {
+      
+      const res = await axios.post("http://localhost:5000/login", {
+        email: info.email
+      })
+      console.log(res.data)  
+      
+      
+    } catch (error) {
+      setLoginErrorMsg("User not found. Sign up to continue")
+    }
+
+
+    
+  }
+
+  const addToMailingList = async () =>{
+    
+  }
+
+
+  return (
+    <Flex
+      width="100vw"
+      height="100vh"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      gridGap="10"
+      backgroundColor="gray.800"
+    >
+      <Stack direction="row" justifyContent="center" alignItems="center">
+        <Card btnText="Login" type="login" errorMsg={loginErrorMsg} onClick={login} onChange={ (e) => setInfo({email: e.target.value})} loading={loading}  />
+        <Card btnText="Sign up" onClick={addToMailingList} errorMsg={mailingListErrMsg} onChange={ (e) => setInfo({email: e.target.value, name: info.name})} onChangeName={ (e) => setInfo({name: e.target.value, email: info.email}) } loading={loading} />
+      </Stack>
+      <Text fontSize="xs" color="white">
+        The Real Bootcamp 2021 Notion API Demo
+        <Text textAlign="center" color="green.200" fontSize="xs">
+          <a
+            target="_blank"
+            href="https://www.notion.so/092c3ec283d043e8aee78b01bc2807bf?v=ef91eaeba496495eb22282d0198f0373"
           >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+            See the mailing list
+          </a>
+        </Text>
+      </Text>
+    </Flex>
+  );
+};
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
-
-export default Index
+export default Index;

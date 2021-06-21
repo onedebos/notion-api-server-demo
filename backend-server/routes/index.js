@@ -2,18 +2,42 @@ const fastify = require("fastify")({
   logger: true,
 });
 
-// CONTROLLERS
-const bootCampController = require("../controllers/bootcamp.controller");
+// Controllers
+const bootcampController = require("../controllers/bootcamp.controller");
 
-// ROUTES
+// Routes
 fastify.get("/", async (req, reply) => {
   try {
-    const res = await bootCampController.getAllCourses();
+    const res = await bootcampController.getAllCourses();
     reply.type("application/json").code(200);
-    return { res };
+    return { data: res };
+  } catch (error) {
+    reply.type("application/json").code(400);
+    return { data: error };
+  }
+});
+
+fastify.post("/login", async (req, reply) => {
+  try {
+    const { email } = req.body;
+    const res = await bootcampController.findSubscriberByEmail({ email });
+    reply.type("application/json").code(200);
+    return { data: res };
   } catch (error) {
     reply.type("application/json").code(400);
     return { error };
+  }
+});
+
+fastify.post("/", async (req, reply) => {
+  try {
+    const { name, email } = req.body;
+    const res = await bootcampController.addSubscriberToDB({ name, email });
+    reply.type("application/json").code(200);
+    return { data: res };
+  } catch (error) {
+    reply.type("application/json").code(400);
+    return { data: error };
   }
 });
 

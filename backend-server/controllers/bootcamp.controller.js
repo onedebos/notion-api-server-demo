@@ -1,20 +1,23 @@
-// Business Logic
+// Handles the business Logic
 const bootcampModel = require("../models/bootcamp.model");
 
-const bootCampController = {
-  getAllCourses: async () => await bootcampModel.queryCourses(),
+const bootcampController = {
+  getAllCourses: async () => await bootcampModel.getCourses(),
 
   addSubscriberToDB: async ({ name, email }) => {
-    const { isUserInDB } = await bootcampModel.findSubscriberByEmail({ name, email });
+    const { isUserInDB } = await bootcampModel.findSubscriberByEmail({
+      name,
+      email,
+    });
 
     // check if the E-mail exists
-    if (isUserInDB){
+    if (isUserInDB) {
       return {
-        error: "That E-mail already exists in our mailing list."
-      }
+        error: "That E-mail already exists in our mailing list.",
+      };
     }
 
-    // if the E-mail doesn't exist, add to Notion DB
+    // if the E-mail doesn't already exist, add to Notion DB
     const response = await bootcampModel.addSubscriberToDB({ name, email });
 
     // if something goes wrong, send an error message
@@ -28,12 +31,8 @@ const bootCampController = {
     return { message: "Successfully added to the Bootcamp mailing list" };
   },
 
-  getSubscribersFromDB: async () => await bootcampModel.getSubscribersFromDB(),
+  findSubscriberByEmail: async ({ email }) =>
+    await bootcampModel.findSubscriberByEmail({ email }),
 };
 
-bootCampController.addSubscriberToDB({
-  name: "Shola",
-  email: "sholas@gmail.com",
-});
-
-module.exports = bootCampController;
+module.exports = bootcampController;

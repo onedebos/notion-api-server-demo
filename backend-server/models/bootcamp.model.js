@@ -1,12 +1,12 @@
-// Make operations on the DB
+// This file contains code to make operations on the DB
 
 const notion = require("../services/notion");
 const courseDatabaseId = process.env.NOTION_DATABASE_ID;
 const mailingListDatabaseId = process.env.NOTION_MAILING_LIST_ID;
 
 const bootcampModel = {
-  // list all the courses in the DB
-  queryCourses: async () => {
+  
+  getCourses: async () => {
     try {
       const { results } = await notion.databases.query({
         database_id: courseDatabaseId,
@@ -15,7 +15,7 @@ const bootcampModel = {
       const res = results.map((page) => {
         return {
           pageId: page.id,
-          videoURL: page.properties["YouTube Video"].url,
+          videoURL: page.properties["YouTube Video"]?.url,
           title: page.properties.Name.title[0].plain_text,
           tags: page.properties.Tags.multi_select.map((tag) => tag.name),
           summary: page.properties.Summary.rich_text[0].plain_text,
