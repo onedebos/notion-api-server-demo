@@ -1,15 +1,20 @@
-// const router   = require('express').Router();
-// const BASE_URL = '/api';
+const fastify = require("fastify")({
+  logger: true,
+});
 
-// // MIDDLEWARE
-// router.use(require('../middleware').before);
+// CONTROLLERS
+const bootCampController = require("../controllers/bootcamp.controller");
 
-// // CONTROLLERS
-// var HomeController = require('../controllers/home.controller');
-// var UserController = require('../controllers/user.controller');
+// ROUTES
+fastify.get("/", async (req, reply) => {
+  try {
+    const res = await bootCampController.getAllCourses();
+    reply.type("application/json").code(200);
+    return { res };
+  } catch (error) {
+    reply.type("application/json").code(400);
+    return { error };
+  }
+});
 
-// // ROUTES
-// router.get(BASE_URL + '/', HomeController.index);
-// router.get(BASE_URL + '/users/:username', UserController.getUser);
-
-// module.exports = router;
+module.exports = fastify;
