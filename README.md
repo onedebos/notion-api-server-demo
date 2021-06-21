@@ -1,29 +1,36 @@
-# Example app with [chakra-ui](https://github.com/chakra-ui/chakra-ui)
+# Notion API Demo 
 
-This example features how to use [chakra-ui](https://github.com/chakra-ui/chakra-ui) as the component library within a Next.js app.
+This NodeJS application demonstrates how to read and write data to your Notion Workspace using the new [Notion APIs](https://developers.notion.com/reference/intro).
 
-We are connecting the Next.js `_app.js` with `chakra-ui`'s Theme and ColorMode containers so the pages can have app-wide dark/light mode. We are also creating some components which shows the usage of `chakra-ui`'s style props.
 
-## Deploy your own
+## Built With
+- Node.js (Fastify)
+- Notion API
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## To test out this application, follow the steps below.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-chakra-ui&project-name=with-chakra-ui&repository-name=with-chakra-ui)
+- Clone the project to your local machine
+- Create an account on Notion and generate a `NOTION_ACCESS_TOKEN` and `NOTION_DATABASE_ID` according to the tutorial.
+- Create a `.env` file in the root directory of this project and update it with the variables below and your keys.
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-chakra-ui with-chakra-ui-app
-# or
-yarn create next-app --example with-chakra-ui with-chakra-ui-app
+```
+NOTION_API_TOKEN = ''
+NOTION_DATABASE_ID = ''
+NOTION_MAILING_LIST_ID = ''
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- Install the project's dependencies using `yarn intall`
+- Start up the Fastify server with `yarn start`. 
 
-## Notes
+The server will start on `localhost:5000`. You may then make GET and POST requests to the root endpoint using the parameters specified in the tutorial.
 
-Chakra has supported Gradients and RTL in `v1.1`. To utilize RTL, [add RTL direction and swap](https://chakra-ui.com/docs/features/rtl-support).
 
-If you don't have multi-direction app, you should make `<Html lang="ar" dir="rtl">` inside `_document.js`.
+## Author
+
+👤 **Adebola**
+
+- Github: [@githubhandle](https://github.com/onedebos)
+- Twitter: [@twitterhandle](https://twitter.com/debosthefirst)
+- Linkedin: [linkedin](https://www.linkedin.com/in/adebola-niran/)
+- Web: [Web](https://adebola.dev)
+
