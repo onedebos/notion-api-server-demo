@@ -1,0 +1,12 @@
+GET http://localhost:5000/ HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Adebola",
+    "email": "adebola@therealcompany.co"
+}
